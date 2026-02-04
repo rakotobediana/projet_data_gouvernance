@@ -1,0 +1,14 @@
+# Ignorer les données brutes et traitées (trop lourd pour Git)
+data/*
+!data/.gitkeep
+
+# Ignorer les fichiers de configuration personnels de Jupyter
+.ipynb_checkpoints/
+
+# Ignorer les fichiers temporaires Python
+__pycache__/
+*.pyc
+
+# Ignorer les fichiers système Mac/Windows
+.DS_Store
+Thumbs.db
