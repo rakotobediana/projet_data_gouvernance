@@ -1,0 +1,41 @@
+services:
+  # Couche 1 : Stockage
+  mariadb:
+    image: mariadb:10.6
+    container_name: dq_mariadb
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=data_quality_db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - dq_network
+
+  # Couche 2 : Exploration
+  jupyter:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: dq_jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work/notebooks  # Mes sauvegardes
+      - ./data:/home/jovyan/work/data            # Mes données brutes
+    environment:
+      - JUPYTER_TOKEN=admin  # Mot de passe simple pour le dev
+    depends_on:
+      - mariadb
+    networks:
+      - dq_network
+
+volumes:
+  mariadb_data:
+
+networks:
+  dq_network:
+    driver: bridge
