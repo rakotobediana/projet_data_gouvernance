@@ -54,7 +54,16 @@ services:
       - "8088:8088"
     environment:
       - SUPERSET_SECRET_KEY=mysecretkey
-    command: /usr/bin/run-server.sh
+    command: >
+      bash -c "
+      pip install pymysql &&
+      superset db upgrade &&
+      superset fab create-admin --username admin --firstname Admin --lastname User --email admin@test.com --password admin || true &&
+      superset init &&
+      /usr/bin/run-server.sh
+      "
+    volumes:
+      - ./superset_home:/app/superset_home
     depends_on:
       - mariadb
     networks:
