@@ -46,6 +46,20 @@ services:
     networks:
       - dq_network
 
+  # Couche 4 : Visualisation - Apache Superset (Port 8088)
+  superset:
+    image: apache/superset
+    container_name: dq_superset
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=mysecretkey
+    command: /usr/bin/run-server.sh
+    depends_on:
+      - mariadb
+    networks:
+      - dq_network
+
 volumes:
   mariadb_data:
 
