@@ -33,9 +33,25 @@ services:
     networks:
       - dq_network
 
+    # Couche 3 Validation - Great Expectations (Port 8080)
+  quality-gate:
+    image: python:3.9-slim
+    container_name: dq_great_expectation
+    working_dir: /report
+    volumes:
+      - ./notebooks/mon_rapport_gx_final:/report
+    command: python -m http.server 8080
+    ports:
+      - "8080:8080"
+    networks:
+      - dq_network
+
 volumes:
   mariadb_data:
 
 networks:
   dq_network:
     driver: bridge
+
+
+

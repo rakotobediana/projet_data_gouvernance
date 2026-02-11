@@ -9,6 +9,10 @@ data/*
 __pycache__/
 *.pyc
 
+#Ignorer TOUT le contenu du dossier du rapport great expecations sauf le fichier index.html
+notebooks/mon_rapport_gx_final/*
+!notebooks/mon_rapport_gx_final/index.html
+
 # Ignorer les fichiers système Mac/Windows
 .DS_Store
 Thumbs.db
