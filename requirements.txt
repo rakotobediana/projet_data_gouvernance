@@ -7,3 +7,4 @@ pymysql
 mysql-connector-python
 sweetviz
 evidently
+great_expectations
